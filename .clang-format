@@ -6,6 +6,8 @@ Language: Cpp
 # Indentation style
 IndentWidth: 4
 TabWidth: 4
+# Indent pre-processor directives before the hash.
+IndentPPDirectives: AfterHash
 
 # opening braces style (same line)
 BraceWrapping:
