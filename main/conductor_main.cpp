@@ -6,7 +6,7 @@ int main() {
 
     Conductor conductor;
 
-    conductor.addBench(new Memory("Memory",1))
+    conductor.addBench(new Memory())
         .setOutputFile("../tmp/out.json")
         .run()
         .save()

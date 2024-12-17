@@ -8,7 +8,7 @@
 #include <vector>
 
 int main() {
-    Memory memoryBenchmark("Memory Latency Benchmark", 1);
+    Memory memoryBenchmark;
     memoryBenchmark.run();
     json results = memoryBenchmark.getJson();
     std::cout << results.dump(4) << std::endl;

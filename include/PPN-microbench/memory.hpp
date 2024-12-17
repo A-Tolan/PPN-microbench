@@ -12,24 +12,20 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
-#include <iomanip>
-
-// Alias for nlohmann::ordered_json
-using json = nlohmann::ordered_json;
 
 // Memory class inherits from Microbench
 class Memory : public Microbench {
   private:
     // Vectors to store memory sizes and times
-    std::vector<u64> mem_sizes;
+    std::vector<u64> mem_sizes  = std::vector<u64>(0,18);
     std::vector<u64> mem_times;
 
     // Function to execute the benchmark, overrides the base class method
     void executeBench() override;
 
   public:
-    // Constructor to initialize the Memory object with a name and number of iterations
-    Memory(std::string name, int nbIterations);
+    // Constructor
+    Memory();
     
     // Destructor
     ~Memory();
