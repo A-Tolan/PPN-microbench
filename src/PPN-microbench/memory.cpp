@@ -20,23 +20,28 @@ double measure_latency(u64 size, u64 nbIterations) {
 
     double total_latency = 0.0;
 
-    // Warmup runs for the cpu. Reduces performance errors.
-    for (int run = 0; run < 3; ++run) {
-        void *p = memblock[0];
-
-        // Pointer chasing loop
-        for (u64 i = 0; i < nbIterations; ++i) {
-            p = *(void **)p;
-        }
-    }
-
     // Perform the latency measurement 10 times for better accuracy
     for (int run = 0; run < 10; ++run) {
         void *p = memblock[0];
         auto start = std::chrono::high_resolution_clock::now();
 
         // Pointer chasing loop
-        for (u64 i = 0; i < nbIterations; ++i) {
+        for (u64 i = 0; i < nbIterations / 16; ++i) {
+            p = *(void **)p;
+            p = *(void **)p;
+            p = *(void **)p;
+            p = *(void **)p;
+            p = *(void **)p;
+            p = *(void **)p;
+            p = *(void **)p;
+            p = *(void **)p;
+            p = *(void **)p;
+            p = *(void **)p;
+            p = *(void **)p;
+            p = *(void **)p;
+            p = *(void **)p;
+            p = *(void **)p;
+            p = *(void **)p;
             p = *(void **)p;
         }
 
@@ -70,7 +75,7 @@ void Memory::run() {
     for (size_t i = 0; i < mem_sizes.size();
          i++) { //////calcul du vect finall à faire
                 ///(ln2(10^8) - ln2(512)=taille vect ??)
-        mem_sizes[i] = size *= 2;
+        mem_sizes[i] = size *= 1.04;
     }
 
     mem_times.resize(mem_sizes.size());
@@ -78,11 +83,23 @@ void Memory::run() {
     std::cout << mem_sizes.size() << std::endl;
     std::cout << mem_times.size() << std::endl;
 
+    // void **memblock = new void *[size];
+    // // Warmup runs for the cpu. Reduces performance errors.
+    // for (int run = 0; run < 3; ++run) {
+    //     void *p = memblock[0];
+
+    //     // Pointer chasing loop
+    //     for (u64 i = 0; i < nbIterations; ++i) {
+    //         p = *(void **)p;
+    //     }
+    // }
+
     for (size_t i = 0; i < mem_sizes.size() - 1; ++i) {
         u64 size_B = mem_sizes[i];
         // u64 size = size_B / sizeof(void *);
         std::cout << size_B << std::endl;
         double latency = measure_latency(size_B, getNbIterations());
+        // double latency = 0;
         mem_times[i] = latency;
     }
 }
