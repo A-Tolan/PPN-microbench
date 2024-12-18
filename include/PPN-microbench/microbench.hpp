@@ -15,7 +15,7 @@ using json = nlohmann::ordered_json;
 
 class Microbench {
   protected:
-    std::vector<std::any> results;
+    // std::vector<std::any> results;
     std::string name;
     int nbIterations;
 
@@ -25,7 +25,7 @@ class Microbench {
     Context context = Context::getInstance();
 
     Microbench(std::string name, int nbIterations);
-    virtual~Microbench(); /////////doit être virtual ??
+    virtual ~Microbench(); /////////doit être virtual ??
 
     std::string getName();
     int getNbIterations();

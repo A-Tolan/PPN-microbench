@@ -60,21 +60,28 @@ Memory::Memory() : Microbench("Memory", 1000000) { srand(time(nullptr)); }
 // Destructor
 Memory::~Memory() {}
 
+void Memory::executeBench() {} // haha
+
 // Execute the benchmark
 void Memory::run() {
     // Define the sizes to test (in B)
-    u64 size = 512;
-    for (size_t i = 0; size <= 1e9 / sizeof(void *);
-         ++i, size *= 2) { //////calcul du vect finall à faire
-                           ///(ln2(10^8) - ln2(512)=taille vect ??)
-        mem_sizes[i] = size;
+    // for (size_t size = 512; size < (1 << 30) / sizeof(void *);
+    size_t size = 512;
+    for (size_t i = 0; i < mem_sizes.size();
+         i++) { //////calcul du vect finall à faire
+                ///(ln2(10^8) - ln2(512)=taille vect ??)
+        mem_sizes[i] = size *= 2;
     }
 
     mem_times.resize(mem_sizes.size());
 
-    for (size_t i = 0; i < mem_sizes.size(); ++i) {
+    std::cout << mem_sizes.size() << std::endl;
+    std::cout << mem_times.size() << std::endl;
+
+    for (size_t i = 0; i < mem_sizes.size() - 1; ++i) {
         u64 size_B = mem_sizes[i];
         // u64 size = size_B / sizeof(void *);
+        std::cout << size_B << std::endl;
         double latency = measure_latency(size_B, getNbIterations());
         mem_times[i] = latency;
     }
