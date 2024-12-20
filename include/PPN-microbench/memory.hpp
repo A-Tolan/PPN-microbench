@@ -18,7 +18,7 @@ class Memory : public Microbench {
   private:
     // Vectors to store memory sizes and times
     std::vector<u64> mem_sizes = std::vector<u64>(300);
-    std::vector<u64> mem_times;
+    std::vector<double> mem_times;
 
     // Function to execute the benchmark, overrides the base class method
     void executeBench() override;
