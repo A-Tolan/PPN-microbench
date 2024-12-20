@@ -103,7 +103,7 @@ void Memory::run() {
         
         mem_times[i] = latency;
     }
-
+}
 // Get the results in JSON format
 json Memory::getJson() {
     json result1, result2, result;
